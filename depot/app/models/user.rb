@@ -17,7 +17,6 @@ class User < ActiveRecord::Base
    end
 
    def role?(*roles)
-   	binding.pry
     @role_names ||= self.roles.select(:name).map(&:name)
     (@role_names & roles.map(&:to_s)).present?
   end
