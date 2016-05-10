@@ -12,9 +12,9 @@
 		<%= image_tag("logo.png") %>
 		<%= @page_title || "Pragmatic Bookshelf" %>
 	</div>
-    <% if (user_signed_in? && current_user.role?(:admin)) %>
-	<%=   link_to 'Admin', products_path,{style: "color: purple;font-size: 150%;"} %>
-	<% end %>
+	<span><%= render 'layouts/header' %></span>
+
+	<% if @is_admin.nil? %>
 	<div id="columns">
 		<div id="side">
 			<div id="cart">
@@ -23,8 +23,7 @@
 				<%= render @cart %>
 				<% end %>
 				<% end %>
-			</div>
-			<span><%= render 'layouts/header' %></span>
+			</div>			
 			<% if false %>
 			<ul>
 				<li><a href="http://www....">Home</a></li>
@@ -38,6 +37,11 @@
 			<%= yield %>
 		</div>
 	</div>
+	<% else %>
+	<div id="main">
+			<%= yield %>
+		</div>
+<% end %>
 	
 </body>
 </html>
