@@ -1,4 +1,9 @@
 class ProductsController < ApplicationController
+  before_filter :set_admin
+
+def set_admin
+  @is_admin = true
+end
   # GET /products
   # GET /products.json
   def index
@@ -28,6 +33,7 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
+      format.js
       format.json { render json: @product }
     end
   end
@@ -46,6 +52,7 @@ class ProductsController < ApplicationController
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
         format.json { render json: @product, status: :created, location: @product }
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @product.errors, status: :unprocessable_entity }
