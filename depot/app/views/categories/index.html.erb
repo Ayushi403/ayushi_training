@@ -1,0 +1,33 @@
+<h2>Listing categories</h2>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+<% if !@categories.nil?%>
+<% @categories.each do |category| %>
+<ul>
+<li><%= category.name %> </li>
+
+<% if !category.sub_categories.nil?%>
+<ul>
+<% category.sub_categories.each do |sub_category| %>
+<li><%= sub_category.name %> </li>
+<% end %>
+<% end %>
+</ul>
+</ul>
+  <tr style="display:none;">
+    <td><%= link_to 'Show', category %></td>
+    <td><%= link_to 'Edit', edit_category_path(category) %></td>
+    <td><%= link_to 'Destroy', category, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Category', new_category_path %>
