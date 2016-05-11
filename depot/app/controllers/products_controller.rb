@@ -1,13 +1,19 @@
 class ProductsController < ApplicationController
   before_filter :set_admin
+  #before_filter :check_permissions
 
-def set_admin
-  @is_admin = true
-end
+  def set_admin
+    @is_admin = true
+  end
+
+  def check_permissions
+   # authorize!,Product
+  end
   # GET /products
   # GET /products.json
   def index
     @products = Product.all
+    authorize! :index, Product
     #@cat_list = Category.all
     #@products = Category.subca.all
 
@@ -21,6 +27,7 @@ end
   # GET /products/1.json
   def show
     @product = Product.find(params[:id])
+    authorize! :show, Product
 
     respond_to do |format|
       format.html # show.html.erb
@@ -33,6 +40,7 @@ end
   def new
     @cat_list = Category.all
     @product = Product.new
+    authorize! :new, Product
    # @Category = Category.new
 
     respond_to do |format|
@@ -51,6 +59,7 @@ end
   # POST /products.json
   def create
     @product = Product.new(params[:product])
+    authorize! :create, Product
 
     respond_to do |format|
       if @product.save
@@ -68,6 +77,7 @@ end
   # PUT /products/1.json
   def update
     @product = Product.find(params[:id])
+    authorize! :update, Product
 
     respond_to do |format|
       if @product.update_attributes(params[:product])
@@ -85,6 +95,7 @@ end
   def destroy
     @product = Product.find(params[:id])
     @product.destroy
+    authorize! :destroy, Product
 
     respond_to do |format|
       format.html { redirect_to products_url }
