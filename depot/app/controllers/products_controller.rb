@@ -8,6 +8,8 @@ end
   # GET /products.json
   def index
     @products = Product.all
+    #@cat_list = Category.all
+    #@products = Category.subca.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -29,7 +31,9 @@ end
   # GET /products/new
   # GET /products/new.json
   def new
+    @cat_list = Category.all
     @product = Product.new
+   # @Category = Category.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -46,13 +50,14 @@ end
   # POST /products
   # POST /products.json
   def create
+    binding.pry
     @product = Product.new(params[:product])
 
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
         format.json { render json: @product, status: :created, location: @product }
-        format.js
+        #format.js
       else
         format.html { render action: "new" }
         format.json { render json: @product.errors, status: :unprocessable_entity }

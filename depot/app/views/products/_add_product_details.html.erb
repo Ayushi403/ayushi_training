@@ -1,1 +1,54 @@
-<span id = "add_product"><%= link_to 'New product', new_product_path ,remote: true%></span>
+<h3>  New product</h3>
+<% cat_list = @cat_list %>
+<div id='category_field'>
+	<% if cat_list.length > 0 %>
+	<%# sub_cat_list = cat_list.sub_categories %>
+	<% end %>
+	<label>Catagories</label>
+	<select id="category_list">
+		<option value="" selected="true"></option>
+		<%if cat_list.length > 0 %>
+		<% cat_list.each do |cat| %>
+		<option value='<%=cat.id%>'><%=cat.name%></option>
+
+		<% end %>
+		<% end %>
+	</select>
+
+	<%if cat_list.length > 0 %>
+	<% cat_list.each do |cat| %>
+	<% if cat.sub_categories.length > 0 %>
+	<div style="display:none;" class= "cat_div"id = "sub_cat<%=cat.id%>">
+		<% cat.sub_categories.each do |sub_cat| %>
+		<br/>
+		<br/>
+		<label>Sub Catagories</label>
+		<select id="sub_category_list">
+		<option value="" selected="true"></option>
+			<option value='<%= sub_cat.id %>'> <%=sub_cat.name%></option>
+		</select>
+		<% end %>
+	</div>
+	<% end %>
+	<% end %>
+	<% end %>
+
+	<br/><br/>
+	<span id = "add_product" style="display:none;"><%= render 'form' %></span>
+
+</div>
+
+<script type="text/javascript">
+
+	$('#category_list').click(function(){
+	//$('.sub_cat_section').hide();
+	var cat_id = $(this).val();
+	var sub_cat_id = "sub_cat" + cat_id;
+	$(".cat_div").hide();
+	$("#"+sub_cat_id).show();
+});
+
+	$('.cat_div').click(function(){
+	$("#add_product").show();
+});
+</script>
