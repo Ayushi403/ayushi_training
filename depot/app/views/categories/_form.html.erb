@@ -1,5 +1,5 @@
 <%#= form_for(@category) do |f| %>
-<%= nested_form_for @category do |f| %>
+<%= nested_form_for @category ,remote: true do |f| %>
 <%#= form_for(@category, :html => {:multipart => true}) do |f| %>
 <% if @category.errors.any? %>
 <div id="error_explanation">
