@@ -25,6 +25,7 @@ gem 'pry-rails', :group => :development
 gem 'devise'
 gem 'mysql2',  '0.3.18'
 gem 'cancan'
+gem "nested_form"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -32,6 +32,7 @@ class CategoriesController < ApplicationController
   # GET /categories/new.json
   def new
     @category = Category.new
+    #3.times {@category.sub_categories.build }
     authorize! :new, Category
 
     respond_to do |format|
@@ -49,6 +50,7 @@ class CategoriesController < ApplicationController
   # POST /categories
   # POST /categories.json
   def create
+    binding.pry
     @category = Category.new(params[:category])
     authorize! :create, Category
 
