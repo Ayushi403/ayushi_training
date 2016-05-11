@@ -50,7 +50,6 @@ end
   # POST /products
   # POST /products.json
   def create
-    binding.pry
     @product = Product.new(params[:product])
 
     respond_to do |format|
