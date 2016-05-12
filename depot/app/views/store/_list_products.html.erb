@@ -1,0 +1,87 @@
+<% cat_list = @categories %>
+<div id='category_field'>
+	<% if cat_list.present? %>
+	<%# sub_cat_list = cat_list.sub_categories %>
+	<% end %>
+	<h3>Catagory</h3>
+	<select id="category_list">
+		<option value="" selected="true"></option>
+		<%if cat_list.length > 0 %>
+		<% cat_list.each do |cat| %>
+		<option value='<%=cat.id%>'><%=cat.name%></option>
+
+		<% end %>
+		<% end %>
+	</select>
+
+	<%if cat_list.present? %>
+	<% cat_list.each do |cat| %>
+	<div style="display:none;" class= "cat_div"id = "sub_cat<%=cat.id%>">
+		<h3>Sub Catagory</h3>
+		<select id="sub_category_list">
+		<option value="" selected="true"></option>
+			<% if cat.sub_categories.present? %>
+			<% cat.sub_categories.each do |sub_cat| %>
+			<option value='<%= sub_cat.id %>'> <%=sub_cat.name%></option>			
+			<% end %>
+			<% end %>
+		</select>
+	</div>
+	<% end %>
+	<% end %>
+
+</div>
+
+
+<br />
+
+<% if @categories.present? %>
+<% @categories.each do |category| %>
+<div class = "cat_all" id = "cat_sel<%=category.id%>">
+	<% if category.sub_categories.present? %>
+	<% category.sub_categories.each do |sub_category| %>
+	<% if sub_category.products.present? %>
+	<% sub_category.products.each do |product| %>
+	<div class="entry">
+		<%#= image_tag(product.image_url) %>
+		<h3><%= product.title %></h3>
+		<%= sanitize(product.description) %>
+		<div class="price_line">
+			<span class="price"><%= number_to_currency(product.price) %></span>
+			<%= button_to 'Add to Cart', line_items_path(product_id: product) ,remote: true%>
+		</div>
+	</div>
+	<% end %>
+	<% end %>
+	<% end %>
+	<% end %>
+	</div>
+<% end %>
+<% end %>
+
+
+<script type="text/javascript">
+
+	$('#category_list').change(function(){
+	//$('.sub_cat_section').hide();
+	var cat_id = $(this).find("option:selected").val();
+	var sub_cat_id = "sub_cat" + cat_id;
+
+	var cat_filter_id = "cat_sel" + cat_id;
+	$(".cat_div").hide();
+	$("#"+sub_cat_id).show();
+  $(".cat_all").hide();
+	$("#"+cat_filter_id).show();
+
+});
+
+	$('.cat_div').change(function(){
+		//var sub_cat_id = $('#sub_category_list').val();
+		var cat_id = $('#category_list').find("option:selected").val();
+		var sub_cat_id = "sub_cat" + cat_id;
+		var sub_cat_val = $("#"+sub_cat_id).find("option:selected").val();
+		//$("#add_product").show();
+		//$("#product_sub_category_id").val(sub_cat_val);
+	});
+</script>
+
