@@ -19,6 +19,7 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
+      format.js
       format.json { render json: @products }
     end
   end

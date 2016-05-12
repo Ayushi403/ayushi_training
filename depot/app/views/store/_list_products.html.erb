@@ -36,19 +36,7 @@
 <br />
 
 <div class = "cat_all" id = "cat_sel">
-	<% if @products.present? %>
-	<% @products.each do |product| %>
-	<div class="entry">
-		<%#= image_tag(product.image_url) %>
-		<h3><%= product.title %></h3>
-		<%= sanitize(product.description) %>
-		<div class="price_line">
-			<span class="price"><%= number_to_currency(product.price) %></span>
-			<%= button_to 'Add to Cart', line_items_path(product_id: product) ,remote: true%>
-		</div>
-	</div>
-	<% end %>
-	<% end %>
+	<%= render 'index',remote: true%>
 	</div>
 
 
@@ -65,7 +53,12 @@
 	$("#"+sub_cat_id).show();
   //$(".cat_all").hide();
 	//$("#"+cat_filter_id).show();
-
+  $.ajax({
+    url: '/',
+    //type: "GET",
+    data: {cat_id: $(this).find("option:selected").val()},
+    dataType : 'script'
+  });
 });
 
 	$('.cat_div').change(function(){
@@ -76,5 +69,15 @@
 		//$("#add_product").show();
 		//$("#product_sub_category_id").val(sub_cat_val);
 	});
+
+	$('.cat_div').change(function(){
+  $.ajax({
+    url: '/',
+   // type: "GET",
+    data: {sub_cat_id: $(this).find("option:selected").val(),cat_id: $('#category_list').find("option:selected").val()},
+    dataType : 'script'
+  });
+});
+
 </script>
 
