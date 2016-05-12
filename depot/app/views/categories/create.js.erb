@@ -1,0 +1,4 @@
+$('#listing').append("<%= j render partial: 'cat_list' %>")
+//$('#category_list').append("<%= j render partial: 'cat_list' %>");
+//$('#cat_form').load("<%= j render partial: 'form' %>")
+$('#cat_form').load(document.URL +  ' #cat_form');

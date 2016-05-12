@@ -32,11 +32,12 @@ class CategoriesController < ApplicationController
   # GET /categories/new.json
   def new
     @category = Category.new
-    #3.times {@category.sub_categories.build }
+    @categories = Category.all
     authorize! :new, Category
 
     respond_to do |format|
       format.html # new.html.erb
+      format.js
       format.json { render json: @category }
     end
   end
@@ -50,12 +51,12 @@ class CategoriesController < ApplicationController
   # POST /categories
   # POST /categories.json
   def create
-    binding.pry
     @category = Category.new(params[:category])
     authorize! :create, Category
 
     respond_to do |format|
       if @category.save
+        format.js
         format.html { redirect_to @category, notice: 'Category was successfully created.' }
         format.json { render json: @category, status: :created, location: @category }
       else

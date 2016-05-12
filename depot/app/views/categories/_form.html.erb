@@ -1,5 +1,5 @@
 <%#= form_for(@category) do |f| %>
-<%= nested_form_for @category do |f| %>
+<%= nested_form_for @category ,remote: true do |f| %>
 <%#= form_for(@category, :html => {:multipart => true}) do |f| %>
 <% if @category.errors.any? %>
 <div id="error_explanation">
@@ -27,7 +27,7 @@
   <p><%= f.link_to_add "Add subCategory", :sub_categories %></p>
 </div>
 
-<div class="actions">
+<div class="actions" id = 'submit_cat'>
   <%= f.submit %>
 </div>
 <% end %>
