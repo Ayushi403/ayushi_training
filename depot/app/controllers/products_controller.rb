@@ -40,7 +40,7 @@ class ProductsController < ApplicationController
   # GET /products/new.json
   def new
     #@cat_list = Category.all
-    @cat_list = Category.includes(:sub_categories)
+    @cat_list = Category.includes(:sub_categories).order(:name)
     @product = Product.new
     authorize! :new, Product
    # @Category = Category.new

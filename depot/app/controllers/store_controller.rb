@@ -3,8 +3,8 @@ class StoreController < ApplicationController
 			#@products = Product.order(:title)
 			#@categories = Category.get_all_category
 			#@categories = Category.all
-			
-			@categories = Category.includes(:sub_categories)
+
+			@categories = Category.includes(:sub_categories).order(:name)
 
 			@products = Product.joins(sub_category: :category)
 
