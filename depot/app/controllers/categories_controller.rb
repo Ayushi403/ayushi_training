@@ -7,7 +7,8 @@ class CategoriesController < ApplicationController
 
 
   def index
-    @categories = Category.all
+    #@categories = Category.all
+    @categories = Category.includes(:sub_categories)
     authorize! :index, Category
 
     respond_to do |format|
@@ -32,7 +33,8 @@ class CategoriesController < ApplicationController
   # GET /categories/new.json
   def new
     @category = Category.new
-    @categories = Category.all
+    #@categories = Category.all
+    @categories = Category.includes(:sub_categories)
     authorize! :new, Category
 
     respond_to do |format|

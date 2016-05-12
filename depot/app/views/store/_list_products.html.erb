@@ -6,7 +6,7 @@
 	<h3>Catagory</h3>
 	<select id="category_list">
 		<option value="" selected="true"></option>
-		<%if cat_list.length > 0 %>
+		<%if cat_list.present? %>
 		<% cat_list.each do |cat| %>
 		<option value='<%=cat.id%>'><%=cat.name%></option>
 
@@ -35,13 +35,9 @@
 
 <br />
 
-<% if @categories.present? %>
-<% @categories.each do |category| %>
-<div class = "cat_all" id = "cat_sel<%=category.id%>">
-	<% if category.sub_categories.present? %>
-	<% category.sub_categories.each do |sub_category| %>
-	<% if sub_category.products.present? %>
-	<% sub_category.products.each do |product| %>
+<div class = "cat_all" id = "cat_sel">
+	<% if @products.present? %>
+	<% @products.each do |product| %>
 	<div class="entry">
 		<%#= image_tag(product.image_url) %>
 		<h3><%= product.title %></h3>
@@ -53,11 +49,8 @@
 	</div>
 	<% end %>
 	<% end %>
-	<% end %>
-	<% end %>
 	</div>
-<% end %>
-<% end %>
+
 
 
 <script type="text/javascript">
@@ -70,8 +63,8 @@
 	var cat_filter_id = "cat_sel" + cat_id;
 	$(".cat_div").hide();
 	$("#"+sub_cat_id).show();
-  $(".cat_all").hide();
-	$("#"+cat_filter_id).show();
+  //$(".cat_all").hide();
+	//$("#"+cat_filter_id).show();
 
 });
 
