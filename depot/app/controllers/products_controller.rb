@@ -19,6 +19,7 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
+      format.js
       format.json { render json: @products }
     end
   end
@@ -38,7 +39,8 @@ class ProductsController < ApplicationController
   # GET /products/new
   # GET /products/new.json
   def new
-    @cat_list = Category.all
+    #@cat_list = Category.all
+    @cat_list = Category.includes(:sub_categories)
     @product = Product.new
     authorize! :new, Product
    # @Category = Category.new
