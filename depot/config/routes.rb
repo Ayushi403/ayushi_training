@@ -13,7 +13,13 @@ Depot::Application.routes.draw do
 
   resources :products do
     get :who_bought, on: :member
+
+
   end
+
+  require 'sidekiq/web'
+    mount Sidekiq::Web => '/sidekiq'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

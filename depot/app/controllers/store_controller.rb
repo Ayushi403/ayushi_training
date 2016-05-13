@@ -8,7 +8,9 @@ class StoreController < ApplicationController
 
 			#@products = Product.joins(sub_category: :category)
 			@products = Product.get_all_category
+			if @products.present?
 			@products = JSON.parse(@products)
+		end
 			#@products = JSON.parse(temp)
 
 			if !params[:sub_cat_id].blank?
