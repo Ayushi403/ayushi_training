@@ -6,17 +6,22 @@ class StoreController < ApplicationController
 
 			@categories = Category.includes(:sub_categories).order(:name)
 
-			@products = Product.joins(sub_category: :category)
+			#@products = Product.joins(sub_category: :category)
+			@products = Product.get_all_category
+			@products = JSON.parse(@products)
+			#@products = JSON.parse(temp)
 
 			if !params[:sub_cat_id].blank?
-				#@sub_cat_id = params[:sub_cat_id]
-				@products = @products.where('sub_category_id =?' , params[:sub_cat_id].to_i)
+				#@sub_cat_id = params[:sub_cat_id]				
+				#@products = @products.where('sub_category_id =?' , params[:sub_cat_id].to_i)
+				@products = @products.select{|i| i["sub_category_id"] ==params[:sub_cat_id].to_i && i["cat_id"] == params[:cat_id].to_i}
+
 			elsif !params[:cat_id].blank?
 				#binding.pry
 				#@cat_id = 3#params[:cat_id]
-				@products = @products.where('categories.id =?' , params[:cat_id].to_i)
+				#@products = @products.where('categories.id =?' , params[:cat_id].to_i)
+				@products = @products.select{|i| i["cat_id"] == params[:cat_id].to_i}
 			end
-
 			@cart = current_cart 
 
 			respond_to do |format|

@@ -105,7 +105,6 @@ GEM
     redis-rack-cache (1.2.4)
       rack-cache (~> 1.2)
       redis-store (~> 1.1.0)
-    redis-rails (0.0.0)
     redis-store (1.1.7)
       redis (>= 2.2)
     sass (3.4.22)
@@ -149,7 +148,6 @@ DEPENDENCIES
   redis
   redis-namespace
   redis-rack-cache
-  redis-rails
   sass-rails (~> 3.1.5)
   sqlite3
   turn (~> 0.8.3)
