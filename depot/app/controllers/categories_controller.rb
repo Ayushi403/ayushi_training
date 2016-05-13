@@ -8,7 +8,7 @@ class CategoriesController < ApplicationController
 
   def index
     #@categories = Category.all
-    @categories = Category.includes(:sub_categories)
+    @categories = Category.includes(:sub_categories).order(:name)
     authorize! :index, Category
 
     respond_to do |format|
@@ -34,7 +34,7 @@ class CategoriesController < ApplicationController
   def new
     @category = Category.new
     #@categories = Category.all
-    @categories = Category.includes(:sub_categories)
+    @categories = Category.includes(:sub_categories).order(:name)
     authorize! :new, Category
 
     respond_to do |format|

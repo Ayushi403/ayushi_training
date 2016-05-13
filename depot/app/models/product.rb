@@ -12,7 +12,9 @@ has_many :line_items
 has_many :orders, through: :line_items
 before_destroy :ensure_not_referenced_by_any_line_item
 belongs_to :sub_category
-#...
+
+after_commit :proucts_delayed_job, on: :create
+# after_commit :proucts_delayed_job, on: :update
 private
 
 # ensure that there are no line items referencing this product
@@ -29,12 +31,25 @@ end
 
 def self.get_all_category
 	@records = $redis.get('all_category')
-	 if !@records.blank?
+	 if @records.blank?
 		# @all_records = Product.joins(sub_category: :category)
 		@all_records = Product.joins(sub_category: :category).select("products.*,sub_categories.name as sub_name, categories.id as cat_id")
 		$redis.set('all_category', @all_records.to_json)
 	 end
 	return @records
 end
+
+def refresh_data_after_commit
+	prod_records = Product.joins(sub_category: :category).select("products.*,sub_categories.name as sub_name, categories.id as cat_id")
+	$redis.set('all_category', prod_records.to_json)
+
+	return @records
+end
+
+def proucts_delayed_job
+    delay.refresh_data_after_commit
+    # create_notifications
+  end
+
 end
 
