@@ -49,8 +49,9 @@ end
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-        format.html { redirect_to store_url, notice:
-                                               'Thank you for your order.' }
+        #format.html { redirect_to store_url, notice:
+                                               #'Thank you for your order.' }
+        format.html {redirect_to @order, notice: 'Thank you for your order,click to pay.'}
         format.json { render json: @order, status: :created,
                              location: @order }
       else
@@ -88,5 +89,9 @@ end
       format.html { redirect_to orders_url }
       format.json { head :ok }
     end
+  end
+
+  def payment
+    #binding.pry
   end
 end

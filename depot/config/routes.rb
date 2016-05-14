@@ -3,7 +3,11 @@ Depot::Application.routes.draw do
 
   devise_for :users
 
-  resources :orders
+  resources :orders do
+  #collection do
+     match "/payment", :to => "orders#payment", :as => "payment"
+   # end
+ end
 
   resources :line_items
 

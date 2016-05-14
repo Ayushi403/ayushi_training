@@ -27,7 +27,16 @@
     <%= f.select :pay_type, Order::PAYMENT_TYPES,
     prompt: 'Select a payment method' %>
   </div>
-  <div class="actions">
+  <div class="actions" id = "place_order">
     <%= f.submit 'Place Order' %>
   </div>
   <% end %>
+
+
+  <script type="text/javascript">
+
+  $('#place_order').click(function(){
+  debugger
+});
+
+</script>

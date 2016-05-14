@@ -1,4 +1,6 @@
+<% if notice %>
 <p id="notice"><%= notice %></p>
+<% end %>
 
 <p>
   <b>Name:</b>
@@ -23,3 +25,8 @@
 
 <%= link_to 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>
+<br />
+<br />
+
+<%= button_to 'pay', order_payment_path(@order) %> 
+<%= button_to 'will pay Later', store_path %>
