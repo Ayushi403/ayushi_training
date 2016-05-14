@@ -11,6 +11,15 @@ class User < ActiveRecord::Base
   has_many :roleusers
   has_many :roles, :through => :roleusers
 
+  has_one :cart
+
+  # def current_cart
+  #   if !self.cart.present?
+  #     cart = Cart.create
+  #   end
+  #   cart
+  # end
+
   def set_role 
   	  customer_role = Role.find_by_name('customer')
   	  self.roles << customer_role
