@@ -6,6 +6,10 @@ Depot::Application.routes.draw do
   resources :orders do
   #collection do
      match "/payment", :to => "orders#payment", :as => "payment"
+     post 'orders/new' => 'orders#new'
+     #get '/new/:total_price'=>'orders#new'
+    # get "/orders/new" => "orders#new"
+   # get '/orders/:new'
    # end
  end
 

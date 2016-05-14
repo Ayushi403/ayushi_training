@@ -14,6 +14,11 @@ class ProductsController < ApplicationController
   def index
     @products = Product.all
     authorize! :index, Product
+    @total_orders = Order.count
+    #binding.pry
+    @total_price    = Order.total_amount
+    @pending_amount = Order.pending_amount
+
     #@cat_list = Category.all
     #@products = Category.subca.all
 

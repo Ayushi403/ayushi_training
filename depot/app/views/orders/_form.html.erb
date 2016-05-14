@@ -27,16 +27,15 @@
     <%= f.select :pay_type, Order::PAYMENT_TYPES,
     prompt: 'Select a payment method' %>
   </div>
+
+   <div class="field" style="display:none;">
+    <%= f.label :total_price %>
+    <%= f.text_field :total_price, :value => @cart.total_price %>
+  </div>
+
+  <%#= number_to_currency(cart.total_price) style="display:none;"%>
   <div class="actions" id = "place_order">
     <%= f.submit 'Place Order' %>
   </div>
   <% end %>
 
-
-  <script type="text/javascript">
-
-  $('#place_order').click(function(){
-  debugger
-});
-
-</script>

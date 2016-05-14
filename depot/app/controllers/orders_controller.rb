@@ -29,6 +29,7 @@ class OrdersController < ApplicationController
       return
     end
     @order = Order.new
+    #@order.total_price = (params[:total_price])
     respond_to do |format|
 format.html # new.html.erb
 format.json { render json: @order }
@@ -44,6 +45,7 @@ end
   # POST /orders.json
   def create
     @order = Order.new(params[:order])
+    @order.payment_status = 'pending'
     @order.add_line_items_from_cart(current_cart)
     respond_to do |format|
       if @order.save
@@ -92,6 +94,14 @@ end
   end
 
   def payment
-    #binding.pry
+    @order = Order.find(params[:order_id])
+    payment_status = 'done'
+
+    respond_to do |format|
+      if @order.update_attributes(:payment_status => payment_status)
+        format.html 
+      end
+    end
   end
+
 end
