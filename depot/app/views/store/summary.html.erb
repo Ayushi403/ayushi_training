@@ -1,0 +1,75 @@
+<html>
+<head>
+<style>
+dl {
+    border: 1px double #ccc;
+    padding: 0.5em;
+  }
+  dt {
+    width: 300px;
+    font-weight: bold;
+    color: blue;
+  }
+  dd {
+    width: 300px;
+    font-weight: bold;
+    color: red;
+  }
+
+</style>
+</head>
+
+<% if notice %>
+<p id="notice"><%= notice %></p>
+<% end %>
+<h2>Your order history</h2>
+<br />
+<table id="product_list">
+<% if @pending_orders.present? %>
+<% @pending_orders.each do |pending_order| %>
+ <tr class='<%= cycle("list_line_odd", "list_line_even") %>'>
+        <td class='list_description'>
+            <dl>
+            <% if pending_order.line_items.present? %>
+            <% pending_order.line_items.each do |line_item| %>
+            <dl>
+            <dt>product name:  <%= line_item.product.title %></dt>
+            <dt>quantity:  <%= line_item.quantity %></dt>
+            <dt>price:  <%= line_item.total_price %></dt>
+            </dl>
+            <% end %>
+            <% end %>
+            <dt>Total:  <%= number_to_currency(pending_order.total_price) %></dt>
+            <dd>payment is pending for this order, click to pay </dd>
+            <dt><%= button_to 'pay', order_payment_path(pending_order) %> </dt>
+            </dl>
+        </td>
+    </tr>
+ <% end %>
+<% end %>
+
+<% if @orders.present? %>
+<% @orders.each do |order| %>
+ <tr class='<%= cycle("list_line_odd", "list_line_even") %>'>
+        <td class='list_description'>
+            <dl>
+            <% if order.line_items.present? %>
+            <% order.line_items.each do |line_item| %>
+            <dl>
+            <dt>product name:  <%= line_item.product.title %></dt>
+            <dt>quantity:  <%= line_item.quantity %></dt>
+            <dt>price:  <%= line_item.total_price %></dt>
+            </dl>
+            <% end %>
+            <% end %>
+            <dt>Total:  <%= number_to_currency(order.total_price) %></dt>
+            </dl>
+        </td>
+    </tr>
+ <% end %>
+<% end %>
+</table>
+
+<%= link_to 'Back', store_path %>
+
+</html>

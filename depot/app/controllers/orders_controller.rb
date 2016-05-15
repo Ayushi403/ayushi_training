@@ -46,10 +46,11 @@ end
   def create
     @order = Order.new(params[:order])
     @order.payment_status = 'pending'
+    @order.user_id = current_user.id
     @order.add_line_items_from_cart(current_cart)
     respond_to do |format|
       if @order.save
-        Cart.destroy(session[:cart_id])
+        Cart.destroy(current_user.cart.id)
         session[:cart_id] = nil
         #format.html { redirect_to store_url, notice:
                                                #'Thank you for your order.' }
