@@ -1,7 +1,12 @@
 <% if @products.present? %>
 <% @products.each do |product| %>
 <div class="entry">
-	<%#= image_tag(product["image_url"]) %>
+    <% if product["image_url"] != "" %>
+    <% image = Product.where('image_url=?',product["image_url"]) %>
+    <% if image.present? %>
+	<%= image_tag(image.first.image_url, class: 'list_image') %>
+	<% end %>
+	<% end %>
 	<h3><%= product["title"] %></h3>
 	<%= sanitize(product["description"]) %>
 	<%#if (product["rating"].length) %>

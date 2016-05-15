@@ -1,7 +1,9 @@
 <% product ||= @product %>
  <tr class='<%= cycle("list_line_odd", "list_line_even") %>'>
     <td>
+        <% if product.image_url.present? %>
         <%= image_tag(product.image_url, class: 'list_image') %>
+        <% end %>
     </td>
         <td class='list_description'>
             <dl>

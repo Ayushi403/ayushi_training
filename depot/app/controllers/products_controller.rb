@@ -73,7 +73,7 @@ class ProductsController < ApplicationController
         format.json { render json: @product, status: :created, location: @product }
         #format.js
       else
-        format.html { render action: "new" }
+        format.html { render action: "edit" }
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
     end
