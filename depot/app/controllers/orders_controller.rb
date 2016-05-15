@@ -52,6 +52,7 @@ end
       if @order.save
         Cart.destroy(current_user.cart.id)
         session[:cart_id] = nil
+        OrderNotifier.received(@order).deliver
         #format.html { redirect_to store_url, notice:
                                                #'Thank you for your order.' }
         format.html {redirect_to @order, notice: 'Thank you for your order,click to pay.'}
