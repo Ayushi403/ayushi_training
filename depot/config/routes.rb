@@ -19,6 +19,8 @@ Depot::Application.routes.draw do
 
   get "store/index"
 
+  get 'store/summary' => 'store#summary', :as => :summary
+
   resources :products do
     get :who_bought, on: :member
 

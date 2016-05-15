@@ -46,6 +46,7 @@ end
   def create
     @order = Order.new(params[:order])
     @order.payment_status = 'pending'
+    @order.user_id = current_user.id
     @order.add_line_items_from_cart(current_cart)
     respond_to do |format|
       if @order.save

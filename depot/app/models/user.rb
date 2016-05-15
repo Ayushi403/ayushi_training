@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :roles, :through => :roleusers
 
   has_one :cart
+  has_one :orders
 
   # def current_cart
   #   if !self.cart.present?
