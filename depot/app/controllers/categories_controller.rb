@@ -53,11 +53,18 @@ class CategoriesController < ApplicationController
   # POST /categories
   # POST /categories.json
   def create
-    @category = Category.new(params[:category])
+    @cat = Category.where("name =?",params[:category][:name].to_s)
+
+    if !@cat.present?
+      @category = Category.new(params[:category])
+    else
+      @category = Category.find(@cat.first.id)  
+    end
     authorize! :create, Category
 
     respond_to do |format|
-      if @category.save
+      @status = @cat.present? ? @category.update_attributes(params[:category]) : @category.save
+      if @status
         format.js
         format.html { redirect_to @category, notice: 'Category was successfully created.' }
         format.json { render json: @category, status: :created, location: @category }

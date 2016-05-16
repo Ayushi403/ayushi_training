@@ -101,6 +101,7 @@ end
 
     respond_to do |format|
       if @order.update_attributes(:payment_status => payment_status)
+        OrderNotifier.payment(@order).deliver
         format.html 
       end
     end
