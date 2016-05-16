@@ -16,7 +16,7 @@ has_many :orders, through: :line_items
 before_destroy :ensure_not_referenced_by_any_line_item
 belongs_to :sub_category
 
-after_commit :proucts_delayed_job, on: :create
+after_commit :proucts_delayed_job #, on: :create
 # after_commit :proucts_delayed_job, on: :update
 mount_uploader :image_url, AvatarUploader
 accepts_nested_attributes_for :image
@@ -36,7 +36,7 @@ end
 
 def self.get_all_category
 	@records = $redis.get('all_category')
-	 if !@records.blank?
+	 if @records.blank?
 		# @all_records = Product.joins(sub_category: :category)
 		#@all_records = Product.joins(sub_category: :category).select("products.*,sub_categories.name as sub_name, categories.id as cat_id")
 		@all_records = Product.joins(:image).joins(sub_category: :category).select("products.*, sub_categories.name as sub_name, categories.id as cat_id,images.image_url as image_name")
@@ -46,7 +46,7 @@ def self.get_all_category
 end
 
 def refresh_data_after_commit
-	prod_records = Product.joins(sub_category: :category).select("products.*,sub_categories.name as sub_name, categories.id as cat_id")
+	prod_records = Product.joins(:image).joins(sub_category: :category).select("products.*, sub_categories.name as sub_name, categories.id as cat_id,images.image_url as image_name")
 	$redis.set('all_category', prod_records.to_json)
 
 	return @records

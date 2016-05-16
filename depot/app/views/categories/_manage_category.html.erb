@@ -18,13 +18,11 @@
 </head>
 <div class="wrap">
   <div class="floatleft">
-   <br />
-   <br />
    <span id = "cat_form"><%= render 'form',remote: true%></span>
 
  </div>
  <div class="floatleft">
-   <h1>Listing products</h1>
+   <h2>Listing categories</h2>
    <% if !@categories.nil?%>
    <table id = 'listing'>
    <% @categories.each do |category| %>

@@ -7,10 +7,10 @@
     </td>
         <td class='list_description'>
             <dl>
-            <dt><%= product.title %></dt>
-            <dd><%= truncate(strip_tags(product.description),
+            <dt>Title: <%= product.title %></dt>
+            <dd>Description: <%= truncate(strip_tags(product.description),
                 length: 80) %></dd>
-            <dt><%= product.rating %></dt>
+            <dd>Rating: <%= product.rating %></dd>
             </dl>
         </td>
         <td class='list_actions'>

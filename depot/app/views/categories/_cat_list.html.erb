@@ -1,13 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+ul {
+    background: #ffe5e5;
+    padding: 20px;
+    width: 50%;
+}
+
+li{
+    list-style-type: square;
+    width:120px
+}
+</style>
+</head>
 <% category ||= @category %>
 
-<ul id = "category_list">
-  <li><%= category.name %> </li>
+<ul class "b" id = "category_list">
+  <li><span style = "font-weight: bold"><%= category.name %></span></li>
 
   <% if !category.sub_categories.nil?%>
-  <ul>
+  <ul class "d">
     <% category.sub_categories.each do |sub_category| %>
     <li><%= sub_category.name %> </li>
     <% end %>
     <% end %>
   </ul>
 </ul>
+
+</html>

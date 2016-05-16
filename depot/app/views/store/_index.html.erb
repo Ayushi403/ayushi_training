@@ -2,20 +2,28 @@
 <% @products.each do |product| %>
 <div class="entry">
     <% if product["image_name"] != "" %>
+    <%# binding.pry %>
     <% image = Image.where('image_url=?',product["image_name"]) %>
     <% if image.present? %>
+    <%# binding.pry %>
 	<%= image_tag(image.first.image_url, class: 'list_image') %>
 	<% end %>
 	<% end %>
 	<h3><%= product["title"] %></h3>
-	<%= sanitize(product["description"]) %>
+	<p><%= sanitize(product["description"]) %></p>
 	<%#if (product["rating"].length) %>
 	<div class="price_line">
 		<span class="price"><%= number_to_currency(product["price"]) %></span>
+		<% if !current_user.role?(:admin) %>
 		<%= button_to 'Add to Cart', line_items_path(product_id: product["id"]) ,remote: true%>
+		<% end %>
 		<br />
 		rating:<%= product["rating"]%>
 	</div>
+	<br />	
+	<br />
+	<br />
+	<br />
 </div>
 <% end %>
 <% else %>
