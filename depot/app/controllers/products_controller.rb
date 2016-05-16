@@ -47,6 +47,7 @@ class ProductsController < ApplicationController
     #@cat_list = Category.all
     @cat_list = Category.includes(:sub_categories).order(:name)
     @product = Product.new
+    @product.build_image
     authorize! :new, Product
    # @Category = Category.new
 

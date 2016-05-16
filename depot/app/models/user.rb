@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
 
   has_one :cart
   has_one :orders
+  has_one :image, as: :imageable
 
   # def current_cart
   #   if !self.cart.present?
