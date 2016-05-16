@@ -2,7 +2,9 @@
 <p id="notice"><%= notice %></p>
 <% end %>
  <br />
+<% if !current_user.role?(:admin) %>
 <span style="float: right"><%= link_to 'Your orders',:action => 'summary' %></span>
+<% end %>
 <%#= render 'summary' %>
 <h1>Your Pragmatic Catalog</h1>
 <%= render 'list_products' %>

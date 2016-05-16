@@ -1,6 +1,10 @@
 <%#= form_for(@category) do |f| %>
+<% if notice %>
+<p id="notice"><%= notice %></p>
+<% end %>
 <%= nested_form_for @category ,remote: true do |f| %>
 <%#= form_for(@category, :html => {:multipart => true}) do |f| %>
+<div>
 <% if @category.errors.any? %>
 <div id="error_explanation">
   <h2><%= pluralize(@category.errors.count, "error") %> prohibited this category from being saved:</h2>
@@ -12,6 +16,7 @@
   </ul>
 </div>
 <% end %>
+</div>
 
 <div class="field">
   <%= f.label :category%><br />

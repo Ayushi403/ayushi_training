@@ -47,7 +47,8 @@ def summary
     	if @orders.present? || @pending_orders.present?
     		format.html 
     	else
-    		redirect_to store_url, notice: "You have no orders"
+    		format.html { redirect_to store_url, notice:
+                                               'You have no order history.' }
     	end
     end
 end

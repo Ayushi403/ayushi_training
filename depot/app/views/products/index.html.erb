@@ -28,13 +28,16 @@
        <br />
 
        <br />
-
+       <% if @total_orders!=0 %>
        We have <%= pluralize(@total_orders, "order") %>.
        <br />
        Total amount earned: <%= number_to_currency(@total_price) %>
 
        <br />
        Total pending amount: <%= number_to_currency(@pending_amount) %>
+       <% else %>
+       <%= 'No orders till now' %>
+       <% end %>
        
     </div>
     <div class="floatleft">
