@@ -25,6 +25,11 @@ end
     resource.role?(:admin) ? products_path : super
   end
 
+  def configure_permitted_parameters
+
+    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:image_url, :email, :password) }
+  end
+
   # def current_user
   #  # binding.pry
   # # @current_user ||= User.find(session[:user_id]) if session[:user_id]

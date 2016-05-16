@@ -1,4 +1,5 @@
-<%= form_for(@product) do |f| %>
+<%#= form_for(@product) do |f| %>
+<%= nested_form_for @product do |f| %>
   <% if @product.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
@@ -20,8 +21,23 @@
     <%= f.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :image_url %><br />
-    <%= f.file_field :image_url %>
+    <%#= f.label :image_url %><br />
+    <%#= f.file_field :image_url %>
+  </div>
+
+   <div class="field">
+    <%#= f.label :image_url %><br />
+    <%#= f.file_field :image_url %>
+  </div>
+
+  <div class="field">
+  <%# p_image  = f.object.image.present? ? f.object.image : f.object.build_image %>
+  <% f.fields_for :image do |builder| %>
+    <%= builder.label :image_url%>
+    <span id = "add_image"><%= builder.file_field :image_url %></span>
+    <%= builder.link_to_remove "Remove image" %>
+    <% end %>
+    <span id = "image_cl"><%= f.link_to_add "Add image", :image %></span>
   </div>
   <div class="field">
     <%= f.label :price %><br />
@@ -43,4 +59,7 @@
 <% end %>
 
 <script type="text/javascript">
+$(".add_nested_fields").click(function(){
+$(this).hide();
+});
 </script>

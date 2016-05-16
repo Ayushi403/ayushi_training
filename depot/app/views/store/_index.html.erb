@@ -1,8 +1,8 @@
 <% if @products.present? %>
 <% @products.each do |product| %>
 <div class="entry">
-    <% if product["image_url"] != "" %>
-    <% image = Product.where('image_url=?',product["image_url"]) %>
+    <% if product["image_name"] != "" %>
+    <% image = Image.where('image_url=?',product["image_name"]) %>
     <% if image.present? %>
 	<%= image_tag(image.first.image_url, class: 'list_image') %>
 	<% end %>

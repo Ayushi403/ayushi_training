@@ -1,13 +1,15 @@
 class Product < ActiveRecord::Base
-validates :title, :description, :image_url, presence: true
-#validates :title, :description, presence: true
+#validates :title, :description, :image_url, presence: true
+validates :title, :description, presence: true
 validates :price, numericality: {greater_than_or_equal_to: 0.01}
 validates :title, uniqueness: true
-validates :image_url, format: {
-with:
-%r{\.(gif|jpg|png)$}i,
-message: 'must be a URL for GIF, JPG or PNG image.'
-}
+has_one :image, as: :imageable
+validates :image, :presence => true
+# validates :image_url, format: {
+# with:
+# %r{\.(gif|jpg|png)$}i,
+# message: 'must be a URL for GIF, JPG or PNG image.'
+# }
 validates_inclusion_of :rating, :in => 1..5
 has_many :line_items
 has_many :orders, through: :line_items
@@ -17,6 +19,7 @@ belongs_to :sub_category
 after_commit :proucts_delayed_job, on: :create
 # after_commit :proucts_delayed_job, on: :update
 mount_uploader :image_url, AvatarUploader
+accepts_nested_attributes_for :image
 private
 
 # ensure that there are no line items referencing this product
@@ -33,10 +36,10 @@ end
 
 def self.get_all_category
 	@records = $redis.get('all_category')
-	 if @records.blank?
+	 if !@records.blank?
 		# @all_records = Product.joins(sub_category: :category)
-		@all_records = Product.joins(sub_category: :category).select("products.*,sub_categories.name as sub_name, categories.id as cat_id")
-		
+		#@all_records = Product.joins(sub_category: :category).select("products.*,sub_categories.name as sub_name, categories.id as cat_id")
+		@all_records = Product.joins(:image).joins(sub_category: :category).select("products.*, sub_categories.name as sub_name, categories.id as cat_id,images.image_url as image_name")
 		$redis.set('all_category', @all_records.to_json)
 	 end
 	return @records
