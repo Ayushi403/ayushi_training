@@ -34,6 +34,9 @@ dl {
             <% pending_order.line_items.each do |line_item| %>
             <dl>
             <dt>product name:  <%= line_item.product.title %></dt>
+            <% if line_item.product.image_url.present? %>
+            <dd><%#= image_tag(line_item.product.image_url) %></dd>
+            <% end %>
             <dt>quantity:  <%= line_item.quantity %></dt>
             <dt>price:  <%= line_item.total_price %></dt>
             </dl>

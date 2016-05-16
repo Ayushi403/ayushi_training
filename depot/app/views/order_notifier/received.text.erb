@@ -1,0 +1,6 @@
+Dear <%= @order.name %>
+Thank you for your recent order from The Pragmatic Store.
+You ordered the following items:
+<%= render @order.line_items %>
+Total amount:<%= @order.total_price %>
+Click on payment option to confirm your order.
