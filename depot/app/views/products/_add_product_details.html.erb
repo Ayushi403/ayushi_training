@@ -44,6 +44,7 @@
 	var cat_id = $(this).find("option:selected").val();
 	var sub_cat_id = "sub_cat" + cat_id;
 	$(".cat_div").hide();
+	$("#add_product").hide();
 	$("#"+sub_cat_id).show();
 });
 
@@ -52,7 +53,10 @@
 		var cat_id = $('#category_list').find("option:selected").val();
 		var sub_cat_id = "sub_cat" + cat_id;
 		var sub_cat_val = $("#"+sub_cat_id).find("option:selected").val();
-		$("#add_product").show();
+		if(sub_cat_val != 0)
+			$("#add_product").show();
+		else
+			$("#add_product").hide();
 		$("#product_sub_category_id").val(sub_cat_val);
 	});
 </script>
