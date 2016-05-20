@@ -1,0 +1,22 @@
+<h1>ArbianTravel's Front Page</h1>
+<% if @entriesArray.present? %>
+
+<% @entriesArray.each do |entry| %>
+
+<% if !entry.name.nil? %>
+<p><%= entry.name %> | 
+	<% end %>
+	<% if !entry.link.nil? %>
+	<%= entry.link %> |
+	<% end %>
+
+	<% if !entry.phone_no.nil? %>
+	<%= entry.phone_no %> |
+	<% end %>
+
+	<% if !entry.contact_address.nil? %>
+	<%= entry.contact_address %></p>
+	<% end %>
+
+	<% end %>
+	<% end %>
